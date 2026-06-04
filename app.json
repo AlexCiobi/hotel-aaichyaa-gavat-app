@@ -1,0 +1,40 @@
+{
+  "expo": {
+    "name": "Hotel Aaichyaa Gavat",
+    "slug": "hotel-aaichyaa-gavat",
+    "version": "1.0.0",
+    "scheme": "aaichyaagavat",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#C0272D"
+    },
+    "ios": {
+      "supportsTablet": false,
+      "bundleIdentifier": "com.aaichyaagavat.app"
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#C0272D"
+      },
+      "package": "com.aaichyaagavat.app"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-font",
+        {
+          "fonts": []
+        }
+      ],
+      "expo-asset",
+      "expo-web-browser"
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

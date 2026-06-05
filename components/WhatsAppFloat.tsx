@@ -1,7 +1,7 @@
 import { TouchableOpacity, Text, Linking, StyleSheet } from 'react-native'
 
 export default function WhatsAppFloat() {
-  const number = process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? '919XXXXXXXXX'
+  const number = process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? '917083058185'
 
   return (
     <TouchableOpacity

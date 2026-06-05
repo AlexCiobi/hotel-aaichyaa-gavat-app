@@ -78,7 +78,7 @@ export default function OnboardingSetup() {
         </View>
         <TextInput
           value={phoneInput} onChangeText={setPhoneInput}
-          placeholder="88883 77788" keyboardType="phone-pad"
+          placeholder="73858 64885" keyboardType="phone-pad"
           style={{ flex: 1, backgroundColor: 'white', borderRadius: 12, padding: 16, fontSize: 15, borderWidth: 1, borderColor: COLORS.offwhite }}
         />
       </View>

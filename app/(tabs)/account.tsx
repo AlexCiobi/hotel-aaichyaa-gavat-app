@@ -70,7 +70,7 @@ export default function AccountScreen() {
     ])
   }
 
-  const whatsappNumber = process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? '919XXXXXXXXX'
+  const whatsappNumber = process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? '917083058185'
 
   return (
     <SafeAreaView style={{ flex: 1, backgroundColor: COLORS.cream }}>
@@ -345,8 +345,8 @@ export default function AccountScreen() {
             {
               icon: '📞',
               label: 'Call Us',
-              value: '+91 88883 77788',
-              action: () => Linking.openURL('tel:+918888377788'),
+              value: '+91 73858 64885',
+              action: () => Linking.openURL('tel:+917083058185'),
             },
             {
               icon: '💬',

@@ -7,8 +7,8 @@ const CONTACTS = [
   {
     icon: '📞',
     label: 'Call Us',
-    value: '+91 88883 77788',
-    action: () => Linking.openURL('tel:+918888377788'),
+    value: '+91 73858 64885',
+    action: () => Linking.openURL('tel:+917083058185'),
   },
   {
     icon: '💬',
@@ -16,7 +16,7 @@ const CONTACTS = [
     value: 'Chat on WhatsApp',
     action: () =>
       Linking.openURL(
-        `https://wa.me/${process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? '918888377788'}`
+        `https://wa.me/${process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? '917083058185'}`
       ),
   },
   {

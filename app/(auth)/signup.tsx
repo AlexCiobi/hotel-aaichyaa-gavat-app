@@ -65,7 +65,7 @@ export default function SignupScreen() {
       label: 'WhatsApp Number',
       value: whatsapp,
       setter: setWhatsapp,
-      placeholder: '9XXXXXXXXX',
+      placeholder: '7083058185',
       keyboard: 'phone-pad' as const,
       secure: false,
       capitalize: 'none' as const,

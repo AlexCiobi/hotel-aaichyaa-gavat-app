@@ -95,7 +95,7 @@ const OFFERS: OfferItem[] = [
 
 export default function OffersScreen() {
   const { language } = useUserStore()
-  const whatsappNumber = process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? '919XXXXXXXXX'
+  const whatsappNumber = process.env.EXPO_PUBLIC_WHATSAPP_NUMBER ?? '917083058185'
 
   function shareOnWhatsApp(offer: OfferItem) {
     const text = encodeURIComponent(

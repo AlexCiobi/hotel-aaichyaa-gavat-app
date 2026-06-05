@@ -516,7 +516,7 @@ export default function OrderScreen() {
                 <TextInput
                   value={whatsapp}
                   onChangeText={setWhatsapp}
-                  placeholder="+91 9XXXXXXXXX"
+                  placeholder="+91 7083058185"
                   keyboardType="phone-pad"
                   style={{
                     backgroundColor: COLORS.cream,

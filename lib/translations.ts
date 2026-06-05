@@ -4,7 +4,7 @@ type Strings = {
   greeting: string; openNow: string; closedNow: string;
   orderNow: string; reserveTable: string; viewMenu: string;
   cart: string; cartEmpty: string; placeOrder: string;
-  dineIn: string; takeaway: string; preorder: string;
+  dineIn: string; takeaway: string;
   subtotal: string; total: string; gst: string;
   myReservations: string; newReservation: string; confirm: string;
   name: string; phone: string; date: string; time: string; guests: string;
@@ -21,7 +21,7 @@ const translations: Record<Language, Strings> = {
     greeting: 'Hello', openNow: 'Open Now', closedNow: 'Closed',
     orderNow: 'Order Now', reserveTable: 'Reserve Table', viewMenu: 'View Menu',
     cart: 'Cart', cartEmpty: 'Your cart is empty', placeOrder: 'Place Order',
-    dineIn: 'Dine-In', takeaway: 'Takeaway', preorder: 'Pre-order',
+    dineIn: 'Dine-In', takeaway: 'Takeaway',
     subtotal: 'Subtotal', total: 'Total', gst: 'GST (5%)',
     myReservations: 'My Reservations', newReservation: 'New Reservation', confirm: 'Confirm',
     name: 'Full Name', phone: 'WhatsApp Number', date: 'Date', time: 'Time', guests: 'Guests',
@@ -36,7 +36,7 @@ const translations: Record<Language, Strings> = {
     greeting: 'नमस्कार', openNow: 'उघडे आहे', closedNow: 'बंद आहे',
     orderNow: 'ऑर्डर करा', reserveTable: 'टेबल बुक करा', viewMenu: 'मेनू पहा',
     cart: 'कार्ट', cartEmpty: 'कार्ट रिकामी आहे', placeOrder: 'ऑर्डर द्या',
-    dineIn: 'डाइन-इन', takeaway: 'टेकअवे', preorder: 'प्री-ऑर्डर',
+    dineIn: 'डाइन-इन', takeaway: 'टेकअवे',
     subtotal: 'उपएकूण', total: 'एकूण', gst: 'जीएसटी (५%)',
     myReservations: 'माझ्या आरक्षणे', newReservation: 'नवीन आरक्षण', confirm: 'पुष्टी करा',
     name: 'पूर्ण नाव', phone: 'व्हॉट्सअ‍ॅप नंबर', date: 'तारीख', time: 'वेळ', guests: 'पाहुणे',
@@ -51,7 +51,7 @@ const translations: Record<Language, Strings> = {
     greeting: 'नमस्ते', openNow: 'अभी खुला है', closedNow: 'बंद है',
     orderNow: 'ऑर्डर करें', reserveTable: 'टेबल बुक करें', viewMenu: 'मेनू देखें',
     cart: 'कार्ट', cartEmpty: 'कार्ट खाली है', placeOrder: 'ऑर्डर दें',
-    dineIn: 'डाइन-इन', takeaway: 'टेकअवे', preorder: 'प्री-ऑर्डर',
+    dineIn: 'डाइन-इन', takeaway: 'टेकअवे',
     subtotal: 'उप-कुल', total: 'कुल', gst: 'जीएसटी (5%)',
     myReservations: 'मेरी बुकिंग', newReservation: 'नई बुकिंग', confirm: 'पुष्टि करें',
     name: 'पूरा नाम', phone: 'व्हाट्सएप नंबर', date: 'तारीख', time: 'समय', guests: 'मेहमान',
@@ -66,7 +66,7 @@ const translations: Record<Language, Strings> = {
     greeting: 'ನಮಸ್ಕಾರ', openNow: 'ಈಗ ತೆರೆದಿದೆ', closedNow: 'ಮುಚ್ಚಿದೆ',
     orderNow: 'ಆರ್ಡರ್ ಮಾಡಿ', reserveTable: 'ಟೇಬಲ್ ಬುಕ್ ಮಾಡಿ', viewMenu: 'ಮೆನು ನೋಡಿ',
     cart: 'ಕಾರ್ಟ್', cartEmpty: 'ಕಾರ್ಟ್ ಖಾಲಿಯಾಗಿದೆ', placeOrder: 'ಆರ್ಡರ್ ನೀಡಿ',
-    dineIn: 'ಡೈನ್-ಇನ್', takeaway: 'ಟೇಕ್‌ಅವೇ', preorder: 'ಪ್ರಿ-ಆರ್ಡರ್',
+    dineIn: 'ಡೈನ್-ಇನ್', takeaway: 'ಟೇಕ್‌ಅವೇ',
     subtotal: 'ಉಪ-ಒಟ್ಟು', total: 'ಒಟ್ಟು', gst: 'ಜಿಎಸ್ಟಿ (5%)',
     myReservations: 'ನನ್ನ ಬುಕಿಂಗ್', newReservation: 'ಹೊಸ ಬುಕಿಂಗ್', confirm: 'ದೃಢೀಕರಿಸಿ',
     name: 'ಪೂರ್ಣ ಹೆಸರು', phone: 'ವಾಟ್ಸ್‌ಆಪ್ ಸಂಖ್ಯೆ', date: 'ದಿನಾಂಕ', time: 'ಸಮಯ', guests: 'ಅತಿಥಿಗಳು',

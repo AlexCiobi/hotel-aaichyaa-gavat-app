@@ -1,7 +1,7 @@
 import { create } from 'zustand';
 import type { MenuItem } from '../lib/menuData';
 
-export type OrderType = 'dine-in' | 'takeaway' | 'preorder';
+export type OrderType = 'dine-in' | 'takeaway';
 
 interface CartItem { item: MenuItem; quantity: number; }
 
@@ -10,9 +10,6 @@ interface CartState {
   orderType: OrderType;
   selectedTable: number | null;
   specialInstructions: string;
-  arrivalDate: string;
-  arrivalTime: string;
-  guests: number;
   addItem: (item: MenuItem) => void;
   removeItem: (id: string) => void;
   updateQty: (id: string, delta: number) => void;
@@ -20,9 +17,6 @@ interface CartState {
   setOrderType: (t: OrderType) => void;
   setTable: (n: number | null) => void;
   setInstructions: (s: string) => void;
-  setArrivalDate: (date: string) => void;
-  setArrivalTime: (time: string) => void;
-  setGuests: (count: number) => void;
   subtotal: () => number;
   totalItems: () => number;
 }
@@ -32,9 +26,6 @@ export const useCartStore = create<CartState>()((set, get) => ({
   orderType: 'dine-in',
   selectedTable: null,
   specialInstructions: '',
-  arrivalDate: '',
-  arrivalTime: '',
-  guests: 1,
   addItem: (item) =>
     set((s) => {
       const idx = s.items.findIndex((ci) => ci.item.id === item.id);
@@ -53,13 +44,10 @@ export const useCartStore = create<CartState>()((set, get) => ({
         .filter((ci) => ci.quantity > 0);
       return { items: next };
     }),
-  clearCart: () => set({ items: [], selectedTable: null, specialInstructions: '', arrivalDate: '', arrivalTime: '', guests: 1 }),
+  clearCart: () => set({ items: [], selectedTable: null, specialInstructions: '' }),
   setOrderType: (orderType) => set({ orderType }),
   setTable: (selectedTable) => set({ selectedTable }),
   setInstructions: (specialInstructions) => set({ specialInstructions }),
-  setArrivalDate: (arrivalDate) => set({ arrivalDate }),
-  setArrivalTime: (arrivalTime) => set({ arrivalTime }),
-  setGuests: (guests) => set({ guests }),
   subtotal: () => get().items.reduce((sum, ci) => sum + ci.item.price * ci.quantity, 0),
   totalItems: () => get().items.reduce((sum, ci) => sum + ci.quantity, 0),
 }));

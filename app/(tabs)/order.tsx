@@ -20,27 +20,15 @@ import { TablePicker } from '../../components/TablePicker'
 type Step = 1 | 2 | 3
 type PaymentMethod = 'cod' | 'razorpay'
 
-const TIME_SLOTS = [
-  '11:00', '12:00', '13:00', '14:00', '15:00',
-  '16:00', '17:00', '18:00', '19:00', '20:00',
-  '21:00', '22:00', '23:00',
-]
-
 export default function OrderScreen() {
   const {
     items,
     orderType,
     selectedTable,
     specialInstructions,
-    arrivalDate,
-    arrivalTime,
-    guests,
     setOrderType,
     setTable,
     setInstructions,
-    setArrivalDate,
-    setArrivalTime,
-    setGuests,
     removeItem,
     updateQty,
     clearCart,
@@ -133,25 +121,6 @@ export default function OrderScreen() {
           {orderNumber}
         </Text>
 
-        {orderType === 'preorder' && (
-          <View
-            style={{
-              backgroundColor: '#FFF3CD',
-              borderRadius: 12,
-              padding: 16,
-              marginTop: 20,
-              alignSelf: 'stretch',
-            }}
-          >
-            <Text style={{ fontWeight: '700', color: COLORS.charcoal, marginBottom: 6 }}>
-              Pre-Order Details
-            </Text>
-            <Text style={{ color: '#666' }}>Date: {arrivalDate}</Text>
-            <Text style={{ color: '#666' }}>Time: {arrivalTime}</Text>
-            <Text style={{ color: '#666' }}>Guests: {guests}</Text>
-          </View>
-        )}
-
         <Text style={{ color: '#888', marginTop: 16, textAlign: 'center', lineHeight: 20 }}>
           You'll receive a WhatsApp confirmation shortly.
         </Text>
@@ -186,11 +155,6 @@ export default function OrderScreen() {
       Alert.alert('Select Table', 'Please select a table for dine-in orders')
       return
     }
-    if (orderType === 'preorder' && (!arrivalDate || !arrivalTime)) {
-      Alert.alert('Pre-Order Details', 'Please enter your arrival date and time')
-      return
-    }
-
     setLoading(true)
     const num = `TH-${Math.floor(100000 + Math.random() * 900000)}`
 
@@ -218,10 +182,12 @@ export default function OrderScreen() {
       }
     }
 
+    const phoneFormatted = whatsapp.startsWith('+91') ? whatsapp : `+91${whatsapp}`
     const orderData: Record<string, unknown> = {
       order_number: num,
       customer_name: customerName,
-      whatsapp_number: whatsapp.startsWith('+91') ? whatsapp : `+91${whatsapp}`,
+      customer_phone: phoneFormatted,
+      whatsapp_number: phoneFormatted,
       order_type: orderType,
       items: items.map((i) => ({
         id: i.item.id,
@@ -237,15 +203,13 @@ export default function OrderScreen() {
       order_status: 'placed',
     }
 
-    if (orderType === 'dine-in') orderData.table_number = selectedTable
-    if (orderType === 'preorder') {
-      orderData.arrival_date = arrivalDate
-      orderData.arrival_time = arrivalTime
-      orderData.guests = guests
-    }
-
     try {
-      await supabase.from('orders').insert(orderData)
+      const { error } = await supabase.from('orders').insert(orderData)
+      if (error) {
+        Alert.alert('Order Failed', error.message)
+        setLoading(false)
+        return
+      }
       addOrderToHistory({
         orderNumber: num,
         items: items.map((i) => ({
@@ -354,7 +318,7 @@ export default function OrderScreen() {
                 <View style={{ flexDirection: 'row', alignItems: 'center', gap: 10 }}>
                   <TouchableOpacity
                     onPress={() =>
-                      quantity === 1 ? removeItem(item.id) : updateQty(item.id, quantity - 1)
+                      quantity === 1 ? removeItem(item.id) : updateQty(item.id, -1)
                     }
                     style={{
                       width: 30,
@@ -371,7 +335,7 @@ export default function OrderScreen() {
                     {quantity}
                   </Text>
                   <TouchableOpacity
-                    onPress={() => updateQty(item.id, quantity + 1)}
+                    onPress={() => updateQty(item.id, 1)}
                     style={{
                       width: 30,
                       height: 30,
@@ -440,12 +404,6 @@ export default function OrderScreen() {
                     label: 'Takeaway',
                     desc: 'Pick up your order',
                   },
-                  {
-                    type: 'preorder' as const,
-                    icon: '📅',
-                    label: 'Pre-Order',
-                    desc: 'Schedule for later',
-                  },
                 ] as const
               ).map(({ type, icon, label, desc }, idx, arr) => (
                 <TouchableOpacity
@@ -506,152 +464,6 @@ export default function OrderScreen() {
                   Select Table
                 </Text>
                 <TablePicker selected={selectedTable} onSelect={setTable} />
-              </View>
-            )}
-
-            {/* Pre-order fields */}
-            {orderType === 'preorder' && (
-              <View
-                style={{
-                  backgroundColor: '#fff',
-                  borderRadius: 14,
-                  padding: 16,
-                  gap: 16,
-                }}
-              >
-                <Text
-                  style={{ fontWeight: '700', fontSize: 15, color: COLORS.charcoal }}
-                >
-                  Pre-Order Details
-                </Text>
-
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: '600',
-                      color: '#666',
-                      marginBottom: 6,
-                      textTransform: 'uppercase',
-                      letterSpacing: 0.5,
-                    }}
-                  >
-                    Arrival Date
-                  </Text>
-                  <TextInput
-                    value={arrivalDate}
-                    onChangeText={setArrivalDate}
-                    placeholder="YYYY-MM-DD"
-                    style={{
-                      backgroundColor: COLORS.cream,
-                      borderRadius: 10,
-                      padding: 12,
-                      fontSize: 15,
-                      borderWidth: 1,
-                      borderColor: '#E5E5E5',
-                      color: COLORS.charcoal,
-                    }}
-                  />
-                </View>
-
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: '600',
-                      color: '#666',
-                      marginBottom: 8,
-                      textTransform: 'uppercase',
-                      letterSpacing: 0.5,
-                    }}
-                  >
-                    Arrival Time
-                  </Text>
-                  <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-                    <View style={{ flexDirection: 'row', gap: 8 }}>
-                      {TIME_SLOTS.map((time) => (
-                        <TouchableOpacity
-                          key={time}
-                          onPress={() => setArrivalTime(time)}
-                          style={{
-                            paddingHorizontal: 14,
-                            paddingVertical: 8,
-                            borderRadius: 8,
-                            backgroundColor:
-                              arrivalTime === time ? COLORS.saffron : '#F5F5F5',
-                            borderWidth: 1,
-                            borderColor:
-                              arrivalTime === time ? COLORS.saffron : '#E5E5E5',
-                          }}
-                        >
-                          <Text
-                            style={{
-                              color: arrivalTime === time ? '#fff' : COLORS.charcoal,
-                              fontWeight: '600',
-                              fontSize: 13,
-                            }}
-                          >
-                            {time}
-                          </Text>
-                        </TouchableOpacity>
-                      ))}
-                    </View>
-                  </ScrollView>
-                </View>
-
-                <View>
-                  <Text
-                    style={{
-                      fontSize: 12,
-                      fontWeight: '600',
-                      color: '#666',
-                      marginBottom: 8,
-                      textTransform: 'uppercase',
-                      letterSpacing: 0.5,
-                    }}
-                  >
-                    Number of Guests
-                  </Text>
-                  <View style={{ flexDirection: 'row', alignItems: 'center', gap: 24 }}>
-                    <TouchableOpacity
-                      onPress={() => guests > 1 && setGuests(guests - 1)}
-                      style={{
-                        width: 38,
-                        height: 38,
-                        borderRadius: 19,
-                        backgroundColor: guests > 1 ? COLORS.saffron : '#E5E5E5',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Text style={{ color: '#fff', fontSize: 20, fontWeight: '700' }}>−</Text>
-                    </TouchableOpacity>
-                    <Text
-                      style={{
-                        fontSize: 24,
-                        fontWeight: '700',
-                        minWidth: 32,
-                        textAlign: 'center',
-                        color: COLORS.charcoal,
-                      }}
-                    >
-                      {guests}
-                    </Text>
-                    <TouchableOpacity
-                      onPress={() => guests < 20 && setGuests(guests + 1)}
-                      style={{
-                        width: 38,
-                        height: 38,
-                        borderRadius: 19,
-                        backgroundColor: guests < 20 ? COLORS.saffron : '#E5E5E5',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                      }}
-                    >
-                      <Text style={{ color: '#fff', fontSize: 20, fontWeight: '700' }}>+</Text>
-                    </TouchableOpacity>
-                  </View>
-                </View>
               </View>
             )}
 
@@ -819,17 +631,9 @@ export default function OrderScreen() {
                   'Type',
                   orderType === 'dine-in'
                     ? '🍽️ Dine-In'
-                    : orderType === 'takeaway'
-                    ? '🥡 Takeaway'
-                    : '📅 Pre-Order',
+                    : '🥡 Takeaway',
                 ],
                 ...(orderType === 'dine-in' ? [['Table', `T${selectedTable}`]] : []),
-                ...(orderType === 'preorder'
-                  ? [
-                      ['Arrival', `${arrivalDate} at ${arrivalTime}`],
-                      ['Guests', String(guests)],
-                    ]
-                  : []),
                 ['Name', customerName],
                 ['WhatsApp', whatsapp],
               ].map(([key, val]) => (

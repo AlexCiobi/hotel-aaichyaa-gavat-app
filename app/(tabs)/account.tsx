@@ -4,7 +4,6 @@ import {
   Text,
   ScrollView,
   TouchableOpacity,
-  Switch,
   Linking,
   Alert,
   ActivityIndicator,
@@ -35,7 +34,7 @@ const LANGUAGES: { code: Language; label: string }[] = [
 
 export default function AccountScreen() {
   const { session, profile, signOut } = useAuth()
-  const { name, phone, language, setLanguage, toggleDarkMode, darkMode } = useUserStore()
+  const { name, phone, language, setLanguage } = useUserStore()
   const [orders, setOrders] = useState<OrderRecord[]>([])
   const [loadingOrders, setLoadingOrders] = useState(false)
 
@@ -316,16 +315,6 @@ export default function AccountScreen() {
             </View>
           </View>
 
-          {/* Dark mode */}
-          <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
-            <Text style={{ color: COLORS.charcoal, fontSize: 15 }}>Dark Mode</Text>
-            <Switch
-              value={darkMode}
-              onValueChange={toggleDarkMode}
-              trackColor={{ false: '#E5E5E5', true: COLORS.saffron }}
-              thumbColor="#fff"
-            />
-          </View>
         </View>
 
         {/* Restaurant info */}

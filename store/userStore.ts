@@ -8,7 +8,7 @@ interface OrderHistoryItem {
   items: { name: string; qty: number; price: number }[];
   total: number;
   date: string;
-  type: 'dine-in' | 'takeaway' | 'preorder';
+  type: 'dine-in' | 'takeaway';
 }
 
 interface UserState {
